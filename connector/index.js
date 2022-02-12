@@ -1,12 +1,9 @@
-/** @format */
-
+/**
+ * Connector
+ */
 const { Spot } = require("@binance/connector"); // import { Spot } from '@binance/connector';
 require("dotenv").config(); // import 'dotenv/config'
 
-/** @todo wss
- * const require( socket io client )
- *
- */
 const io = require("socket.io-client"); // import { io } from "socket.io-client";
 const socket = io("http://localhost:3000/");
 
@@ -16,7 +13,6 @@ const callbacks = {
   close: () => console.log("closed"), //close: () => client.logger.log("closed"),
   message: function (data) {
     socket.emit("update", data);
-
   },
 };
 
@@ -25,7 +21,7 @@ const client = new Spot(process.env.APIKEY, process.env.SECRET, {
 });
 
 /**  */
-const klineWS = client.klineWS("bnbusdt", "1m", callbacks);
+const klineWS = client.klineWS("btcusdt", "1m", callbacks);
 
 /**
  * @todo disconnect conditions
