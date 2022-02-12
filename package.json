@@ -1,0 +1,24 @@
+{
+  "name": "lowdb-socketio-charts",
+  "version": "0.5.0",
+  "description": "lowdb-socketio-charts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "lowdb",
+    "socket.io",
+    "lightweight-charts",
+    "tradingview",
+    "binance"
+  ],
+  "author": "emgreeff",
+  "license": "ISC",
+  "dependencies": {
+    "@binance/connector": "^1.7.0",
+    "lightweight-charts": "^3.7.0",
+    "lowdb": "^3.0.0",
+    "socket.io": "^4.4.1"
+  }
+}
