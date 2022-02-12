@@ -1,9 +1,11 @@
-
+/**
+ * Socket.io Client
+ */
 const { io } = require("socket.io-client");
 
 const socket = io();
+const port = process.env.PORT || 4000;
 
-// client-side
 socket.on("connect", () => {
   console.log(socket.id); // x8WIv7-mJelg7on_ALbx
 });
