@@ -4,8 +4,7 @@
   "description": "lowdb-socketio-charts",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "dev": "jsdoc"  },
   "keywords": [
     "lowdb",
     "socket.io",
@@ -16,15 +15,9 @@
   "author": "emgreeff",
   "license": "ISC",
   "dependencies": {
-    "@binance/connector": "^1.7.0",
-    "dotenv": "^16.0.0",
-    "jsdoc": "^3.6.10",
-    "lightweight-charts": "^3.7.0",
-    "lowdb": "^3.0.0",
-    "socket.io": "^4.4.1"
+    "jsdoc": "^3.6.10"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15",
-    "parcel": "^2.3.1"
+    "turbo": "^1.1.2"
   }
 }

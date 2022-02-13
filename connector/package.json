@@ -4,11 +4,12 @@
   "description": "NodeJS Binance API connector",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@binance/connector": "^1.7.0",
     "dotenv": "^16.0.0",
     "socket.io-client": "^4.4.1"
   }

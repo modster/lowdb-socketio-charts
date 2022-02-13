@@ -8,7 +8,10 @@
 /** @requires lightweight-charts */
 import { createChart } from "lightweight-charts";
 const chart = createChart(document.getElementById("container"));
+
 import { io } from "socket.io-client";
+const socket = io("http://localhost:3000/")
+//const socket = io();
 
 const lines = [
   { time: "2019-04-11", value: 80.01 },
@@ -34,31 +37,17 @@ const lineSeries = chart.addLineSeries({
 /** sample line seris data */
 lineSeries.setData(lines);
 
-console.log(lines);
-const socket = io();
-
 socket.on("connect", () => {
   console.log(socket.id);
 
-  socket.on("chart", function (arg) {
-    let parsed = JSON.parse(arg);
-    //console.log(parsed)
-    let t = parsed.k.t;
-    let v = parsed.k.c;
-    let value = parseFloat(v);
-    let time = Math.floor(t / 1000);
+  /**
+   * @param arg
+   */
+  socket.on("chart", (arg) => {
 
-    // let date = new Date(t);
-    //let ti = new Date(t);
-    //console.log(`${ti.getHours()}-${ti.getMinutes()}-${ti.getSeconds()}`);
-    //let time = `${ti.getHours()}-${ti.getMinutes()}-${ti.getSeconds()}`
-    // console.log(`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`);
-    // let ymd = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
-
-    let update = { time, value };
-    console.log(update);
-    lineSeries.update(update);
-  });
+      console.log(arg);
+      lineSeries.update(arg);
+    });
 });
 
 // socket.on("disconnect", () => {
