@@ -1,16 +1,15 @@
 /**
  * @format
  * @name lightweight-charts
- * @module es
  * @todo integrate trading-vue charts
  */
 
-/** @requires lightweight-charts */
+/** @module lightweight-charts */
 import { createChart } from "lightweight-charts";
 
-/** @requires socket.io-client */
+/** @module socket.io-client */
 import { io } from "socket.io-client";
-const socket = io("http://localhost");
+const socket = io("http://localhost:3000");
 
 const chart = createChart(document.getElementById("container"));
 
