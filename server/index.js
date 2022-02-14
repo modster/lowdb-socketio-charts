@@ -14,26 +14,22 @@ const server = http.createServer(app);
 /** @requires: socket.io */
 const { Server } = require("socket.io");
 const io = new Server(server);
+
 const port = process.env.PORT || 3000
 
 app.use(express.static("public"));
+
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "public/index.html")
+  res.sendFile(`${__dirname}/public/index.html`)
 })
 
-
 io.on("connection", (socket) => {
-  /**
-   * @todo persist user ids
-   */
+  /** @todo persist user ids */
   console.log(` user ${socket.id} connected`)
-  /**
-   * @event "update"
-   */
+
+  /** @event "update" */
   socket.on("update", function (data) {
-    /**
-     * massage the data
-     */
+    /** massage the data */
     let parsed = JSON.parse(data)
     let t = parsed.k.t
     let v = parsed.k.c
@@ -41,10 +37,7 @@ io.on("connection", (socket) => {
     let time = Math.floor(t / 1000)
     let lineSeries = { time, price }
     console.log( lineSeries )
-
-    /**
-     * @emits 'chart'
-     */
+    /** @emits chart */
     socket.emit("chart", lineSeries)
   });
 });

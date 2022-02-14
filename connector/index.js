@@ -20,10 +20,7 @@ const callbacks = {
   open: () => console.log("open"), //open: () => client.logger.log("open"),
   close: () => console.log("closed"), //close: () => client.logger.log("closed"),
   message: (data) => {
-    /**
-   * @emits "update"
-   * @returns data
-   */
+    /** @emits "update" */
     socket.emit("update", data);
     console.log(data);
   },
@@ -40,6 +37,7 @@ const klineWS = client.klineWS("btcusdt", "1m", callbacks);
  * @todo disconnect conditions
  */
 //setTimeout(() => client.unsubscribe(klineWS), 10000);
+
 socket.on("disconnect", () => {
   client.unsubscribe(klineWS);
   console.log("disconnected");

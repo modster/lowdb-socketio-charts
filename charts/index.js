@@ -7,13 +7,17 @@
 
 /** @requires lightweight-charts */
 import { createChart } from "lightweight-charts";
+
+/** @requires socket.io-client */
+import { io } from "socket.io-client";
+const socket = io("http://localhost");
+
 const chart = createChart(document.getElementById("container"));
 
-import { io } from "socket.io-client";
-const socket = io("http://localhost:3000/")
-//const socket = io();
-
-const lines = [
+/**
+ * @var {lineSeries} lines
+ */
+let lines = [
   { time: "2019-04-11", value: 80.01 },
   { time: "2019-04-12", value: 96.63 },
   { time: "2019-04-13", value: 76.64 },
@@ -26,39 +30,20 @@ const lines = [
   { time: "2019-04-20", value: 74.43 },
 ];
 
-/** @event connect */
-const lineSeries = chart.addLineSeries({
-  // timescale: {
-  //     timeVisible: true,
-  //     secondsVisible: true
-  // }
-});
-/** @event update */
-/** sample line seris data */
+const lineSeries = chart.addLineSeries();
 lineSeries.setData(lines);
 
 socket.on("connect", () => {
   console.log(socket.id);
 
-  /**
-   * @param arg
-   */
-  socket.on("chart", (arg) => {
-
-      console.log(arg);
-      lineSeries.update(arg);
-    });
+  socket.on("chart", (data) => {
+    console.log(data);
+    lineSeries.update(data);
+  });
 });
 
-// socket.on("disconnect", () => {
-//   console.log("Chart Disconnected");
-// });
 
-// socket.on("data", () => {
-//   /* ... */
-// });
 
-// // client-side
 // socket.on("connect_error", (err) => {
 //   console.log(err instanceof Error); // true
 //   console.log(err.message); // not authorized
@@ -71,4 +56,12 @@ socket.on("connect", () => {
 //     socket.connect();
 //   }
 //   // else the socket will automatically try to reconnect
+// });
+
+// socket.on("disconnect", () => {
+//   console.log("Chart Disconnected");
+// });
+
+// socket.on("data", () => {
+//   /* ... */
 // });
