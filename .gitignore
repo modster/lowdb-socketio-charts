@@ -1,6 +1,6 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# ddd-monorepo
+# lowdb-socketio-charts
 lowdb-socketio-charts.code-workspace
 .env*
 dist/**

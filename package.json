@@ -2,6 +2,8 @@
   "name": "lowdb-socketio-charts",
   "version": "0.5.0",
   "description": "lowdb-socketio-charts",
+  "author": "emgreeff",
+  "license": "ISC",
   "private": true,
   "workspaces": [
     "packages/*",
@@ -23,8 +25,6 @@
     "tradingview",
     "binance"
   ],
-  "author": "emgreeff",
-  "license": "ISC",
   "devDependencies": {
     "jsdoc": "^3.6.10",
     "prettier": "^2.5.1",

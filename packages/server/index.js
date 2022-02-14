@@ -1,19 +1,25 @@
 /**
- * @name: server
- * @module: commonjs
+ * @name server
  */
 
-/** @requires: express */
+/** @requires express */
 const express = require("express");
 const app = express();
 
-/** @requires: http */
+/** @requires http */
 const http = require("http");
 const server = http.createServer(app);
 
-/** @requires: socket.io */
+/**
+ * @requires socket.io
+ * @todo allowed headers, credentials
+ */
 const { Server } = require("socket.io");
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: ["http://localhost", "http://localhost:3000"]//,allowedHeaders: ["my-custom-header"],credentials: true
+  }
+});
 
 const port = process.env.PORT || 3000
 
@@ -35,10 +41,10 @@ io.on("connection", (socket) => {
     let v = parsed.k.c
     let price = parseFloat(v)
     let time = Math.floor(t / 1000)
-    let lineSeries = { time, price }
-    console.log( lineSeries )
+    let formatted = { time, price }
+    console.log( formatted )
     /** @emits chart */
-    socket.emit("chart", lineSeries)
+    socket.emit("chart", formatted)
   });
 });
 

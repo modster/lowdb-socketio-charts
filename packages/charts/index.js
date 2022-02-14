@@ -5,13 +5,13 @@
  */
 
 /** @module lightweight-charts */
-import { createChart } from "lightweight-charts";
+import * as lightweightCharts from "lightweight-charts";
 
 /** @module socket.io-client */
 import { io } from "socket.io-client";
 const socket = io("http://localhost:3000");
 
-const chart = createChart(document.getElementById("container"));
+const chart = lightweightCharts.createChart(document.getElementById("container"));
 
 /**
  * @var {lineSeries} lines
@@ -41,21 +41,20 @@ socket.on("connect", () => {
   });
 });
 
+socket.on("connect_error", (err) => {
+  console.log(err instanceof Error); // true
+  console.log(err.message); // not authorized
+  console.log(err.data); // { content: "Please retry later" }
+});
 
-
-// socket.on("connect_error", (err) => {
-//   console.log(err instanceof Error); // true
-//   console.log(err.message); // not authorized
-//   console.log(err.data); // { content: "Please retry later" }
-// });
-
-// socket.on("disconnect", (reason) => {
-//   if (reason === "io server disconnect") {
-//     // the disconnection was initiated by the server, you need to reconnect manually
-//     socket.connect();
-//   }
-//   // else the socket will automatically try to reconnect
-// });
+socket.on("disconnect", (reason) => {
+  if (reason === "io server disconnect") {
+    // the disconnection was initiated by the server, you need to reconnect manually
+    socket.connect();
+  }
+  // else the socket will automatically try to reconnect
+  console.log(reason);
+});
 
 // socket.on("disconnect", () => {
 //   console.log("Chart Disconnected");
