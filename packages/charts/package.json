@@ -6,19 +6,24 @@
   "type": "module",
   "source": "index.html",
   "targets": {
-    "default": {
-      "distDir": "../server/public"
+    "modern": {
+      "engines": {
+        "browsers": "Chrome 80"
+      }
+    },
+    "legacy": {
+      "engines": {
+        "browsers": "> 0.5%, last 2 versions, not dead"
+      }
     }
   },
-  "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "start": "parcel",
+    "dev": "parcel --open",
     "build": "parcel build"
   },
   "dependencies": {
     "buffer": "^6.0.3",
     "lightweight-charts": "^3.7.0",
-    "socket.io": "^4.4.1",
     "socket.io-client": "^4.4.1"
   },
   "devDependencies": {

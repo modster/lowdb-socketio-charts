@@ -12,6 +12,7 @@ import { io } from "socket.io-client";
 const socket = io("http://localhost:3000");
 
 const chart = lightweightCharts.createChart(document.getElementById("container"));
+//const chart = lightweightCharts.createChart(document.body);
 
 /**
  * @var {lineSeries} lines
@@ -31,15 +32,22 @@ let lines = [
 
 const lineSeries = chart.addLineSeries();
 lineSeries.setData(lines);
+chart.timeScale().fitContent();
 
 socket.on("connect", () => {
   console.log(socket.id);
-
-  socket.on("chart", (data) => {
-    console.log(data);
-    lineSeries.update(data);
+  socket.on("message", (data) => {
+    let parsed = JSON.parse(data)
+    let t = parsed.k.t
+    let v = parsed.k.c
+    let price = parseFloat(v)
+    let time = Math.floor(t / 1000)
+    let formatted = { time, price }
+    console.log( formatted )
+    lineSeries.update(formatted);
   });
 });
+
 
 socket.on("connect_error", (err) => {
   console.log(err instanceof Error); // true

@@ -22,7 +22,7 @@ const callbacks = {
   message: (data) => {
     /** @emits "update" */
     socket.emit("update", data);
-    console.log(data);
+    // console.log('update');
   },
 };
 
